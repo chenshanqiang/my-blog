@@ -30,7 +30,14 @@ const admin = require('./routes/admin');
 // 请求拦截,注意要放在设置静态资源之后，注册路由之前
 app.use('/admin', require('./middleware/loginGuard'));
 // 注册路由
-app.use('/home', home)
-app.use('/admin', admin)
+app.use('/home', home);
+app.use('/admin', admin);
 
+// 错误处理
+app.use((err, req, res, next) => {
+    // 将字符串对象转换为对象类型
+    // JSON.parse() 
+    const result = JSON.parse(err);
+    res.redirect(`${result.path}?message=${result.message}`);
+})
 app.listen(1000)

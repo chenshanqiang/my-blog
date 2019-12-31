@@ -20,7 +20,7 @@ module.exports = async(req, res) => {
             req.session.username = user.username; //将用户名存储在请求对象session中
             req.app.locals.userInfo = user; //创建公共数据 userInfo=user
             // 用户密码正确跳转界面
-            res.render('admin/user', { msg: req.session.username });
+            res.redirect('/admin/user');
         } else {
             return res.status(400).render('admin/error', { msg: 'password错误！' });
         }

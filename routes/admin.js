@@ -8,6 +8,8 @@ router.get('/login', require('../controller/admin/loginPage'));
 router.post('/login', require('../controller/admin/login'));
 // 实现退出登录功能
 router.get('/logout', require('../controller/admin/logout'));
+// 渲染用户列表界面
+router.get('/user', require('../controller/admin/userPage'));
 // 渲染添加用户界面
 router.get('/user-edit', require('../controller/admin/userEdit'));
 // 提交新用户数据
