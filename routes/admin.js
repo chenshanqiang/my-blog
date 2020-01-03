@@ -14,6 +14,13 @@ router.get('/user', require('../controller/admin/userPage'));
 router.get('/user-edit', require('../controller/admin/userEdit'));
 // 提交新用户数据
 router.post('/user-edit-fn', require('../controller/admin/userEditFn'));
-
+// 提交修改用户数据
+router.post('/user-modify', require('../controller/admin/userModify'));
+// 渲染文章界面
+router.get('/article', require('../controller/admin/article'));
+// 渲染文章编辑界面
+router.get('/article-edit', require('../controller/admin/articleEdit'));
+// 添加文章编辑数据
+router.post('/article-add', require('../controller/admin/articleAdd'));
 
 module.exports = router;

@@ -1,6 +1,7 @@
 /* jshint esversion:6*/
 const { User } = require('../../model/user')
 module.exports = async(req, res) => {
+    req.app.locals.activeLink = 'user'; //创建公共数据activeLink
     // 接受客户端传来的的当前页参数
     let page = req.query.page || 1;
     // 每一页显示的数据条数

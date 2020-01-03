@@ -4,7 +4,10 @@ const app = express();
 const path = require('path')
 const bodyParser = require('body-parser');
 const session = require('express-session');
-
+// 导入art-tempate模板引擎
+const template = require('art-template');
+// 导入dateformat第三方模块
+const dateFormat = require('dateformat');
 // 连接数据库
 require('./model/connect');
 
@@ -22,6 +25,9 @@ app.use(session({
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'html')
 app.engine('html', require('express-art-template'))
+
+
+template.defaults.imports.dateFormat = dateFormat;
 
 // 引入路由
 const home = require('./routes/home');
