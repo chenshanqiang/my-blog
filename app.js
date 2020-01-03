@@ -8,6 +8,7 @@ const session = require('express-session');
 const template = require('art-template');
 // 导入dateformat第三方模块
 const dateFormat = require('dateformat');
+const morgan = require('morgan');
 // 连接数据库
 require('./model/connect');
 
@@ -26,6 +27,13 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'html')
 app.engine('html', require('express-art-template'))
 
+
+if (process.env.NODE_ENV == 'dev') {
+    app.use(morgan('dev')) //打印请求信息
+    console.log('当前是开发环境')
+} else {
+    console.log('当前是生产环境')
+}
 
 template.defaults.imports.dateFormat = dateFormat;
 

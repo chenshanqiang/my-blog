@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-router.get('/', (req, res) => {
-    res.send('欢迎来到首页')
-})
+
+router.get('/', require('../controller/home/home'));
+router.get('/article', require('../controller/home/articleDetail'));
 
 module.exports = router;

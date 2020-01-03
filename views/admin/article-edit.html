@@ -17,15 +17,15 @@
         <form class="form-container" action="/admin/article-add" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label>标题</label>
-                <input type="text" class="form-control" placeholder="请输入文章标题" name="title">
+                <input value="{{ article && article.title }}" type="text" class="form-control" placeholder="请输入文章标题" name="title">
             </div>
             <div class="form-group">
                 <label>作者</label>
-                <input name="author" type="text" class="form-control" readonly value="{{@userInfo._id}}">
+                <input value="{{@article&&article.author}}" name="author" type="text" class="form-control" readonly value="{{@userInfo._id}}">
             </div>
             <div class="form-group">
                 <label>发布时间</label>
-                <input name="publishDate" type="date" class="form-control">
+                <input value="{{ article && article.publishDate }}" name="publishDate" type="date" class="form-control">
             </div>
 
             <div class="form-group">
@@ -35,15 +35,15 @@
                    -->
                 <input type="file" name="cover" id="file">
                 <div class="thumbnail-waper">
-                    <img class="img-thumbnail" src="" id="preview">
+                    <img class="img-thumbnail" src="{{article && article.cover}}" id="preview">
                 </div>
             </div>
             <div class="form-group">
                 <label>内容</label>
-                <textarea name="content" class="form-control" id="editor"></textarea>
+                <textarea name="content" class="form-control" id="editor">{{ article && article.content }}</textarea>
             </div>
             <div class="buttons">
-                <input type="submit" class="btn btn-primary">
+                <input type="submit" value="{{button}}" class="btn btn-primary">
             </div>
         </form>
     </div>
