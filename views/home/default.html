@@ -4,16 +4,17 @@
 <ul class="list w1100">
     {{each article.records}}
     <li class="{{$index%2 == 0 ?'fl':'fr'}}">
-        <a href="article.html" class="thumbnail">
+        <a href="/home/article?id={{@$value._id}}" class="thumbnail">
             <img src="{{$value.cover}}">
         </a>
         <div class="content">
-            <a class="article-title" href="article.html">{{$value.title}}</a>
+            <a class="article-title" href="/home/article?id={{@$value._id}}">{{$value.title}}</a>
             <div class="article-info">
                 <span class="author">{{$value.author.username}}</span>
                 <span>{{dateFormat($value.publishDate,'yyyy-mm-dd')}}</span>
             </div>
-            <div class="brief">{{@$value.content}}
+            <div class="brief">
+            	{{@$value.content.replace(/<[^>]+>/g, '').substr(0, 90) + '...'}}
             </div>
         </div>
     </li>
@@ -21,12 +22,17 @@
 
 </ul>
 <!-- 文章列表结束 -->
-
 <!-- 分页开始 -->
 <div class="page w1100">
-    <a href="#">上一页</a> {{each article.display }}
-    <a href="/home/article?page" class="{{$value ==article.page?'active':''}}">{{$value}}</a> {{/each}}
-    <a href="#">下一页</a>
+	{{if article.page > 1}}
+    <a href="/home?page={{article.page-1}}">上一页</a>
+    {{/if}}
+    {{each article.display }}
+    <a href="/home?page={{$value}}" class="{{$value == article.page ? 'active' : ''}}">{{$value}}</a> 
+    {{/each}}
+    {{if article.page < article.pages}}
+    <a href="/home?page={{article.page-0+1}}">下一页</a>
+    {{/if}}
 </div>
 <!-- 分页结束 -->
 {{/block}}

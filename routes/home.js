@@ -3,5 +3,6 @@ const router = express.Router();
 
 router.get('/', require('../controller/home/home'));
 router.get('/article', require('../controller/home/articleDetail'));
+router.post('/comment', require('../controller/home/comment'));
 
 module.exports = router;
