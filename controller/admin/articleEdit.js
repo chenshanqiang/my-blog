@@ -7,11 +7,13 @@ module.exports = async(req, res) => {
         const article = await Article.findOne({ _id: id });
         res.render('admin/article-edit', {
             article,
-            button: '修改'
+            button: '修改',
+            link: '/admin/article-add?id=' + id
         })
     } else {
         res.render('admin/article-edit', {
-            button: '添加'
+            button: '添加',
+            link: '/admin/article-add'
         })
     }
     // res.render('admin/article-edit')

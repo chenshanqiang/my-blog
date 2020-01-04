@@ -47,7 +47,7 @@
                 </a>
             </li>
             <%for(var i =1 ;i<=total;i++){%>
-                <li class={{page==i? 'active': ''}}><a href="/admin/user?page={{i}}">{{i}}</a></li class="active">
+                <li class={{page==i? 'active': ''}}><a href="/admin/user?page={{i}}">{{i}}</a></li>
                 <%}%>
                     <li style="display: <%= page-0+1 > total ? 'none' : 'inline' %>">
                         <a href="/admin/user?page=<%=page-0+1%>">
@@ -62,14 +62,14 @@
 <!-- 删除确认弹出框 -->
 <div class="modal fade confirm-modal">
     <div class="modal-dialog modal-lg">
-        <form class="modal-content">
+        <form class="modal-content" method="post" action="/admin/user?page={{page}}">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 <h4 class="modal-title">请确认</h4>
             </div>
             <div class="modal-body">
                 <p>您确定要删除这个用户吗?</p>
-                <input type="hidden" value="1212">
+                <input type="hidden" value="" id="userId" name="id">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -84,8 +84,7 @@
     $(function() {
         $('.delete').on('click', function() {
             const id = $(this).attr('data-id');
-
-            alert(id)
+            $('#userId').val(id)
         })
     })
 </script>

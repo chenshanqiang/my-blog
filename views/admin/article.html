@@ -30,7 +30,7 @@
                     <td>{{$value.author.username}}</td>
                     <td>
                         <a href="/admin/article-edit?id={{@$value._id}}" class="glyphicon glyphicon-edit"></a>
-                        <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
+                        <i class="glyphicon glyphicon-remove delete" data-toggle="modal" data-target=".confirm-modal" data-id="{{@$value._id}}"></i>
                     </td>
                 </tr>
                 {{/each}}
@@ -45,15 +45,17 @@
                     <span>&laquo;</span>
                 </a>
             </li>
-            {{/if}} {{each articles.display}}
-            <li><a href="/admin/article?page={{$value}}">{{$value}}</a></li>
-            {{/each}} {{if articles.page
-            < articles.pages}} <li>
-                <a href="/admin/article?page={{articles.page - 0 + 1}}">
-                    <span>&raquo;</span>
-                </a>
-                </li>
-                {{/if}}
+            {{/if}}
+            <%for(var i =1 ;i<=articles.pages;i++){%>
+                <li class={{page==i? 'active': ''}}><a href="/admin/article?page={{i}}">{{i}}</a></li class="active">
+                <%}%>
+                    {{if articles.page
+                    < articles.pages}} <li>
+                        <a href="/admin/article?page={{articles.page - 0 + 1}}">
+                            <span>&raquo;</span>
+                        </a>
+                        </li>
+                        {{/if}}
         </ul>
         <!-- /分页 -->
     </div>
@@ -62,13 +64,14 @@
 <!-- 删除确认弹出框 -->
 <div class="modal fade confirm-modal">
     <div class="modal-dialog modal-lg">
-        <form class="modal-content">
+        <form class="modal-content" action="/admin/article-del?page={{page}}" method="post">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 <h4 class="modal-title">请确认</h4>
             </div>
             <div class="modal-body">
                 <p>您确定要删除这篇文章吗?</p>
+                <input type="hidden" value="" name="id" id="arId">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -77,4 +80,13 @@
         </form>
     </div>
 </div>
+{{/block}} {{block 'script'}}
+<script type="text/javascript">
+    $(function() {
+        $('.delete').on('click', function() {
+            var id = $(this).attr('data-id')
+            $('#arId').val(id)
+        })
+    })
+</script>
 {{/block}}

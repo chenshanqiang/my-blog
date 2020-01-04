@@ -4,6 +4,7 @@ module.exports = async(req, res) => {
     req.app.locals.activeLink = 'user'; //创建公共数据activeLink
     // 接受客户端传来的的当前页参数
     let page = req.query.page || 1;
+
     // 每一页显示的数据条数
     let pagesize = 2;
     // 查询用户数据的总数
@@ -15,5 +16,17 @@ module.exports = async(req, res) => {
     // 将用户信息从数据库中查询出来
     let users = await User.find({}).limit(pagesize).skip(start);
     // 渲染用户列表模块
-    res.render('admin/user', { users, page, total });
+    if (req.body.id) {
+        await User.findOneAndDelete({ _id: req.body.id });
+        const user = await User.find();
+        const userTotal = user.length;
+        if (userTotal / 2 >= page || userTotal / 2 > page - 1) {
+            return res.redirect('/admin/user?page=' + page)
+        } else {
+            return res.redirect('/admin/user?page=' + (page - 1))
+        }
+    } else {
+        res.render('admin/user', { users, page, total });
+    }
+
 };

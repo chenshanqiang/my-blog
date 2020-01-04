@@ -14,18 +14,18 @@
                     multipart/form-data 将表单数据编码成二进制类型
             -->
         <!-- /分类标题 -->
-        <form class="form-container" action="/admin/article-add" method="post" enctype="multipart/form-data">
+        <form class="form-container" action="{{link}}" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label>标题</label>
                 <input value="{{ article && article.title }}" type="text" class="form-control" placeholder="请输入文章标题" name="title">
             </div>
             <div class="form-group">
                 <label>作者</label>
-                <input value="{{@article&&article.author}}" name="author" type="text" class="form-control" readonly value="{{@userInfo._id}}">
+                <input value="{{@article?article.author:userInfo._id}}" name="author" type="text" class="form-control" readonly>
             </div>
             <div class="form-group">
                 <label>发布时间</label>
-                <input value="{{ article && article.publishDate }}" name="publishDate" type="date" class="form-control">
+                <input value="{{ article && dateFormat(article.publishDate,'yyyy-mm-dd') }}" name="publishDate" type="date" class="form-control">
             </div>
 
             <div class="form-group">

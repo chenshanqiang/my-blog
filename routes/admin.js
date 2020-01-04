@@ -10,6 +10,8 @@ router.post('/login', require('../controller/admin/login'));
 router.get('/logout', require('../controller/admin/logout'));
 // 渲染用户列表界面
 router.get('/user', require('../controller/admin/userPage'));
+// 删除用户
+router.post('/user', require('../controller/admin/userPage'));
 // 渲染添加用户界面
 router.get('/user-edit', require('../controller/admin/userEdit'));
 // 提交新用户数据
@@ -22,5 +24,6 @@ router.get('/article', require('../controller/admin/article'));
 router.get('/article-edit', require('../controller/admin/articleEdit'));
 // 添加文章编辑数据
 router.post('/article-add', require('../controller/admin/articleAdd'));
-
+// 删除文章
+router.post('/article-del', require('../controller/admin/articleDel'));
 module.exports = router;
