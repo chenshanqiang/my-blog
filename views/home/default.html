@@ -1,25 +1,28 @@
- {{extend './common/layout.html'}} {{block 'link'}}
-<link rel="stylesheet" href="css/index.css">{{/block}} {{block 'main'}} {{ include './common/header.html'}}
+{{extend './common/layout.html'}} 
+{{block 'link'}}
+	<link rel="stylesheet" href="/home/css/index.css">
+{{/block}} 
+{{block 'main'}} 
+	{{ include './common/header.html'}}
 <!-- 文章列表开始 -->
 <ul class="list w1100">
     {{each article.records}}
-    <li class="{{$index%2 == 0 ?'fl':'fr'}}">
-        <a href="/home/article?id={{@$value._id}}" class="thumbnail">
-            <img src="{{$value.cover}}">
-        </a>
-        <div class="content">
-            <a class="article-title" href="/home/article?id={{@$value._id}}">{{$value.title}}</a>
-            <div class="article-info">
-                <span class="author">{{$value.author.username}}</span>
-                <span>{{dateFormat($value.publishDate,'yyyy-mm-dd')}}</span>
-            </div>
-            <div class="brief">
-            	{{@$value.content.replace(/<[^>]+>/g, '').substr(0, 90) + '...'}}
-            </div>
-        </div>
-    </li>
+		<li class="{{$index%2 == 0 ?'fl':'fr'}}">
+			<a href="/home/article?id={{@$value._id}}" class="thumbnail">
+				<img data-lazy-src="{{$value.cover}}">
+			</a>
+			<div class="content">
+				<a class="article-title" href="/home/article?id={{@$value._id}}">{{$value.title}}</a>
+				<div class="article-info">
+					<span class="author">{{$value.author.username}}</span>
+					<span>{{dateFormat($value.publishDate,'yyyy-mm-dd')}}</span>
+				</div>
+				<div class="brief">
+					{{@$value.content.replace(/<[^>]+>/g, '').substr(0, 90) + '...'}}
+				</div>
+			</div>
+		</li>
     {{/each}}
-
 </ul>
 <!-- 文章列表结束 -->
 <!-- 分页开始 -->
@@ -35,4 +38,15 @@
     {{/if}}
 </div>
 <!-- 分页结束 -->
+{{/block}}
+{{block 'script'}}
+<script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/home/js/EasyLazyload.min.js"></script>
+<script type="text/javascript">
+	lazyLoadInit({
+		showTime: 1000,
+		onLoadBackEnd: function(i, e) {},
+		onLoadBackStart: function(i, e) {}
+	});
+</script>
 {{/block}}

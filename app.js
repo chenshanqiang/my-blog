@@ -34,7 +34,7 @@ if (process.env.NODE_ENV == 'dev') {
 } else {
     console.log('当前是生产环境')
 }
-
+//设置内置方法
 template.defaults.imports.dateFormat = dateFormat;
 
 // 引入路由

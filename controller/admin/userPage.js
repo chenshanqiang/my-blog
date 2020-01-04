@@ -6,7 +6,7 @@ module.exports = async(req, res) => {
     let page = req.query.page || 1;
 
     // 每一页显示的数据条数
-    let pagesize = 2;
+    let pagesize = 4;
     // 查询用户数据的总数
     let count = await User.countDocuments({});
     //总页数
@@ -20,7 +20,7 @@ module.exports = async(req, res) => {
         await User.findOneAndDelete({ _id: req.body.id });
         const user = await User.find();
         const userTotal = user.length;
-        if (userTotal / 2 >= page || userTotal / 2 > page - 1) {
+        if (userTotal / 4 >= page || userTotal / 4 > page - 1) {
             return res.redirect('/admin/user?page=' + page)
         } else {
             return res.redirect('/admin/user?page=' + (page - 1))

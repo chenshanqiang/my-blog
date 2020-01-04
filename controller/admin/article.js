@@ -8,9 +8,8 @@ module.exports = async(req, res) => {
     let page = req.query.page || 1;
     let articles = await pagination(Article).find().page(page).size(4).display(3).populate('author').exec();
     // 渲染文章列表页面模板
-    res.send(articles)
-//  res.render('admin/article', {
-//      articles: articles,
-//      page
-//  });
+	res.render('admin/article', {
+		articles: articles,
+		page
+	});
 }
