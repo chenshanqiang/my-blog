@@ -22,6 +22,7 @@ module.exports = async(req, res) => {
             req.session.role = user.role;
             // 用户密码正确跳转界面
             if (user.role == 'admin') {
+				req.app.locals.title = '后台'
                 // 当用户是超级管理时，进入后台
                 return res.redirect('/admin/user');
             } else {
